@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="BarChartView">
+        <attr name="bar_width" format="dimension" />
+        <attr name="bar_height" format="dimension" />
+        <attr name="bar_radius" format="dimension" />
+        <attr name="bar_checked_color" format="color" />
+        <attr name="bar_unchecked_color" format="color" />
+        <attr name="bar_text_size" format="dimension" />
+        <attr name="bar_text_color" format="color" />
+        <attr name="bar_margin_top" format="dimension" />
+        <attr name="bar_margin_bottom" format="dimension" />
+        <attr name="line_smoothness" format="float" />
+        <attr name="line_outer_circle_color" format="color" />
+        <attr name="line_outer_circle_radius" format="dimension" />
+        <attr name="line_inner_circle_color" format="color" />
+        <attr name="line_inner_circle_radius" format="dimension" />
+        <attr name="spline_width" format="dimension" />
+        <attr name="arrow_margin_top" format="dimension" />
+        <attr name="arrow_stroke_width" format="dimension" />
+    </declare-styleable>
+
+</resources>
