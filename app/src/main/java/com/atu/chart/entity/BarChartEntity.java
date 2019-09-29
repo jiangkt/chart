@@ -1,5 +1,7 @@
 package com.atu.chart.entity;
 
+import com.atu.chartlibrary.entity.CustomChartEntity;
+
 import java.util.Arrays;
 
 public class BarChartEntity implements CustomChartEntity {

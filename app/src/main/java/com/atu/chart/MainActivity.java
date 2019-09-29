@@ -6,8 +6,8 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.atu.chart.entity.BarChartEntity;
-import com.atu.chart.entity.CustomChartEntity;
-import com.atu.chart.view.BarChartView;
+import com.atu.chartlibrary.entity.CustomChartEntity;
+import com.atu.chartlibrary.view.BarChartView;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.atu.chart.view;
+package com.atu.chartlibrary.view;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -15,15 +15,16 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.atu.chart.R;
-import com.atu.chart.entity.CustomChartEntity;
+import androidx.annotation.ColorInt;
+import androidx.annotation.Nullable;
+
+
+import com.atu.chartlibrary.R;
+import com.atu.chartlibrary.entity.CustomChartEntity;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-
-import androidx.annotation.ColorInt;
-import androidx.annotation.Nullable;
 
 public class BarChartView extends View {
 

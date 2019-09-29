@@ -1,4 +1,4 @@
-package com.atu.chart.entity;
+package com.atu.chartlibrary.entity;
 
 public interface CustomChartEntity {
     String[] getBarTypeNames();
