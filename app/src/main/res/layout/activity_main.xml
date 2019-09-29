@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <com.atu.chart.view.BarChartView
+    <com.atu.chartlibrary.view.BarChartView
         android:id="@+id/barChartView"
         android:layout_width="match_parent"
         app:bar_height="100dp"
