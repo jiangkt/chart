@@ -9,15 +9,12 @@ import android.graphics.Path;
 import android.graphics.PathMeasure;
 import android.graphics.Point;
 import android.graphics.RectF;
-import android.text.StaticLayout;
-import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.Nullable;
-
 
 import com.atu.chartlibrary.R;
 import com.atu.chartlibrary.entity.CustomChartEntity;
@@ -36,7 +33,6 @@ public class BarChartView extends View {
     private int barCharCount;
 
     private int currentBar;
-    private StaticLayout mHintLayout;
 
     public BarChartView(Context context) {
         this(context, null);
@@ -189,9 +185,6 @@ public class BarChartView extends View {
 
     private List<Integer> lineColorList = new ArrayList<>();
 
-    private TextPaint describePaint;
-
-
     /**
      * 箭头列表
      */
@@ -206,9 +199,9 @@ public class BarChartView extends View {
     public void setBarCheckable(boolean barCheckable) {
         this.barCheckable = barCheckable;
 
-        if (this.barCheckable){
+        if (this.barCheckable) {
             currentBar = 0;
-        }else {
+        } else {
             currentBar = -1;
         }
     }
@@ -218,6 +211,7 @@ public class BarChartView extends View {
 
         barWidth = ta.getDimension(R.styleable.BarChartView_bar_width, 0);
         barHeight = ta.getDimension(R.styleable.BarChartView_bar_height, 0);
+        barCheckable = ta.getBoolean(R.styleable.BarChartView_bar_checkable,false);
         barCheckedColor = ta.getColor(R.styleable.BarChartView_bar_checked_color, Color.parseColor("#9F76FF"));
         barUncheckedColor = ta.getColor(R.styleable.BarChartView_bar_unchecked_color, Color.parseColor("#E8C7FF"));
         barTextSize = ta.getDimension(R.styleable.BarChartView_bar_text_size, 0);
@@ -291,7 +285,7 @@ public class BarChartView extends View {
         float centerPoint = (barBoundList.get(index).right - barBoundList.get(index).left) / 2 + barBoundList.get(index).left;
 
         // 绘制这个三角形,你可以绘制任意多边形
-        arrowPathList.get(index).moveTo(centerPoint,arrowTopY);// 此点为多边形的起点
+        arrowPathList.get(index).moveTo(centerPoint, arrowTopY);// 此点为多边形的起点
 
         arrowPathList.get(index).lineTo(centerPoint - arrowStrokeWidth, arrowBottomY);
         arrowPathList.get(index).lineTo(centerPoint + arrowStrokeWidth, arrowBottomY);
@@ -322,11 +316,11 @@ public class BarChartView extends View {
         }
 
         topTextBaseLineY = -fontMetrics.ascent + getPaddingTop();
-        barTopY = fontMetrics.descent - fontMetrics.ascent + barMarginTop + getPaddingTop();
-        barBottomY = barMarginTop + barHeight + getPaddingTop();
+        barTopY = fontMetrics.descent + barMarginTop + topTextBaseLineY;
+        barBottomY = barTopY + barHeight;
         bottomTextBaselineY = barBottomY + barMarginBottom - fontMetrics.ascent;
-        arrowTopY = barHeight + barTopY + barMarginBottom + arrowMarginTop;
-        arrowBottomY = barHeight + barTopY + barMarginBottom + arrowStrokeWidth + arrowMarginTop;
+        arrowTopY = fontMetrics.descent + bottomTextBaselineY + arrowMarginTop;
+        arrowBottomY = arrowTopY + arrowStrokeWidth;
 
         invalidate();
     }
@@ -390,7 +384,7 @@ public class BarChartView extends View {
 
                 //绘制线
                 canvas.drawPath(dstList.get(i), splinePaint);
-                pathMeasureList.get(i).getPosTan(distance, pos, null);
+//                pathMeasureList.get(i).getPosTan(distance, pos, null);
             }
         }
 
@@ -482,32 +476,37 @@ public class BarChartView extends View {
     public boolean onTouchEvent(MotionEvent event) {
         int action = event.getAction();
 
-        boolean isCheckBar = false;
-
         switch (action) {
             case (MotionEvent.ACTION_DOWN):
 
+                /**
+                 * 判断是否可点击
+                 */
                 if (barCheckable) {
+
+                    /**
+                     * 遍历每个柱条的坐标范围
+                     */
                     for (int i = 0; i < barCharCount; i++) {
                         if (event.getX() > barBoundList.get(i).left
                                 && event.getX() < barBoundList.get(i).right
                                 && event.getY() > barTopY
                                 && event.getY() < barBottomY) {
 
-                            currentBar = i;
+                            /**
+                             * 如果选中的不是当前选中的柱条，则改变切换柱条选中
+                             */
+                            if (i != currentBar) {
+                                currentBar = i;
+                                invalidate();
 
-                            isCheckBar = true;
-
-                            if (callback != null) {
-                                if (resultList != null && resultList.size() == barCharCount) {
+                                if (callback != null) {
+                                    if (resultList != null && resultList.size() == barCharCount) {
 //                                    callback.selectResult(resultList.get(i).getResult());
+                                    }
                                 }
                             }
                         }
-                    }
-
-                    if (isCheckBar) {
-                        invalidate();
                     }
                 }
                 break;
@@ -532,9 +531,6 @@ public class BarChartView extends View {
 
         splinePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         splinePaint.setStrokeWidth(splineWidth);
-
-        describePaint = new TextPaint();
-        describePaint.setColor(Color.parseColor("#EEEEEE"));
 
         splinePaint.setStyle(Paint.Style.STROKE);
 

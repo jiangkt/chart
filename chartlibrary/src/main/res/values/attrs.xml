@@ -10,6 +10,7 @@
         <attr name="bar_text_color" format="color" />
         <attr name="bar_margin_top" format="dimension" />
         <attr name="bar_margin_bottom" format="dimension" />
+        <attr name="bar_checkable" format="boolean" />
         <attr name="line_smoothness" format="float" />
         <attr name="line_outer_circle_color" format="color" />
         <attr name="line_outer_circle_radius" format="dimension" />

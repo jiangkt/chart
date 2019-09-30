@@ -30,8 +30,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private String[] types = {
-            "外向", "追求", "自主", "亲密", "随性", "融入",
-            "内向", "知足", "通融", "独立", "计划", "独处"
+            "外y向", "追求", "自主", "亲密", "随性", "融入",
+            "内y向", "知足", "通融", "独立", "计划", "独处"
     };
     private static final int BAR_COUNT = 6;
 
